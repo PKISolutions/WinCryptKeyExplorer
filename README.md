@@ -2,6 +2,9 @@
 
 WinCryptKeyExplorer is a WPF-based application to explore Cryptographic Service Providers (CSP) and Key Storage Providers (KSP), their algorithms and persistent keys backed by provider. This project is a visualization of some of my former PowerShell works: [Get registered CSPs on the system](https://www.sysadmins.lv/blog-en/get-registered-csps-on-the-system.aspx), [Get registered CNG CSPs on the system](https://www.sysadmins.lv/blog-en/get-registered-cng-csps-on-the-system.aspx) and [Certutil tips and tricks: query cryptographic service providers (CSP and KSP)](https://www.sysadmins.lv/blog-en/certutil-tips-and-tricks-query-cryptographic-service-providers-csp-and-ksp.aspx)
 
+# Disclaimer
+The tool is provided "as is" without any plans to actively maintain it.
+
 # Usage
 Simply start executable and wait until providers are loaded.
 ![image](https://user-images.githubusercontent.com/6384119/192849475-42a72ad8-6d8d-4447-98ad-51ae829cbd0b.png)
