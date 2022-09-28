@@ -98,39 +98,42 @@ namespace WinCryptKeyExplorer.Models {
         public void EnumKeys() {
             IsBusy = true;
             Keys.Clear();
-            try {
-                Int32 hresult = NCryptOpenStorageProvider(out SafeNCryptProviderHandle phProvider, Name, 0x00000040);
-                if (hresult > 0) {
-                    MsgBox.Show("Error", "Failed to open provider:\n" + new Win32Exception(hresult).Message);
+            foreach (UInt32 flags in new[] { 0x40, 0x60 }) {
+                try {
+                    Int32 hresult = NCryptOpenStorageProvider(out SafeNCryptProviderHandle phProvider, Name, 0);
+                    if (hresult > 0) {
+                        MsgBox.Show("Error", "Failed to open provider:\n" + new Win32Exception(hresult).Message);
 
-                    return;
-                }
-
-                IntPtr ppKeyName = IntPtr.Zero;
-                IntPtr ppEnumState = IntPtr.Zero;
-                do {
-                    hresult = NCryptEnumKeys(phProvider, null, ref ppKeyName, ref ppEnumState, 0x00000040);
-                    if (hresult == 0) {
-                        NCryptKeyName keyStruct = Marshal.PtrToStructure<NCryptKeyName>(ppKeyName);
-                        Keys.Add(new KeyContainerVM {
-                            KeyName = keyStruct.pszName,
-                            Algorithm = keyStruct.pszAlgid,
-                            KeySpec = (X509KeySpec2)keyStruct.dwLegacyKeySpec,
-                            Flags = keyStruct.dwFlags
-                        });
-
-                        NCryptFreeObject(ppKeyName);
-                    } else {
-                        ppKeyName = IntPtr.Zero;
+                        return;
                     }
-                } while (!IntPtr.Zero.Equals(ppKeyName));
-                NCryptFreeObject(phProvider.DangerousGetHandle());
-                if (!IntPtr.Zero.Equals(ppEnumState)) {
-                    NCryptFreeObject(ppEnumState);
+
+                    IntPtr ppKeyName = IntPtr.Zero;
+                    IntPtr ppEnumState = IntPtr.Zero;
+                    do {
+                        hresult = NCryptEnumKeys(phProvider, null, ref ppKeyName, ref ppEnumState, flags);
+                        if (hresult == 0) {
+                            NCryptKeyName keyStruct = Marshal.PtrToStructure<NCryptKeyName>(ppKeyName);
+                            Keys.Add(new KeyContainerVM {
+                                KeyName = keyStruct.pszName,
+                                Algorithm = keyStruct.pszAlgid,
+                                KeySpec = (X509KeySpec2)keyStruct.dwLegacyKeySpec,
+                                Flags = keyStruct.dwFlags
+                            });
+
+                            NCryptFreeObject(ppKeyName);
+                        } else {
+                            ppKeyName = IntPtr.Zero;
+                        }
+                    } while (!IntPtr.Zero.Equals(ppKeyName));
+                    NCryptFreeObject(phProvider.DangerousGetHandle());
+                    if (!IntPtr.Zero.Equals(ppEnumState)) {
+                        NCryptFreeObject(ppEnumState);
+                    }
+                } catch (Exception ex) {
+                    MsgBox.Show("Error", "Failed to enumerate keys:\n" + ex.Message);
                 }
-            } catch (Exception ex) {
-                MsgBox.Show("Error", "Failed to enumerate keys:\n" + ex.Message);
             }
+
 
             IsBusy = false;
         }

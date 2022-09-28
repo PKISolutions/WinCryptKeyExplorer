@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Win32.SafeHandles;
+using WinCryptKeyExplorer.Models;
 
 namespace WinCryptKeyExplorer.Utils {
     static class Win32 {
@@ -60,7 +61,7 @@ namespace WinCryptKeyExplorer.Utils {
             [MarshalAs(UnmanagedType.LPWStr)]
             public String pszAlgid;
             public Int32 dwLegacyKeySpec;
-            public UInt32 dwFlags;
+            public KeyFlags dwFlags;
         }
     }
 }

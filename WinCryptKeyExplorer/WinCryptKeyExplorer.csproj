@@ -76,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\AlgorithmOperationFlags2.cs" />
     <Compile Include="Models\AlgorithmType.cs" />
+    <Compile Include="Models\KeyFlags.cs" />
     <Compile Include="Models\X509KeySpec2.cs" />
     <Compile Include="Models\CspProvAlg.cs" />
     <Compile Include="Models\KeyContainerVM.cs" />
