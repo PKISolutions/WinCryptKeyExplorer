@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="WinCryptKeyExplorer.Views.AlgListUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WinCryptKeyExplorer.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:MainWindowVM}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <HeaderedContentControl Header="Algorithms">
+        <DataGrid ItemsSource="{Binding SelectedProvider.Algorithms}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  EnableRowVirtualization="False"
+                  EnableColumnVirtualization="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Display Name" Binding="{Binding LongName, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Algorithm Type" Binding="{Binding AlgorithmType, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Operations" Binding="{Binding AlgorithmOperations, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Default Length" Binding="{Binding DefaultLength, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Minimum Length" Binding="{Binding MinLength, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Maximum Length" Binding="{Binding MaxLength, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Increment Length" Binding="{Binding IncrementLength, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Is Valid" Binding="{Binding IsValid, Mode=OneWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </HeaderedContentControl>
+</UserControl>

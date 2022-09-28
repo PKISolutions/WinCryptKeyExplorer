@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="WinCryptKeyExplorer.Views.ProvListUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WinCryptKeyExplorer.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance vm:MainWindowVM}">
+    <HeaderedContentControl Header="Providers">
+        <DataGrid ItemsSource="{Binding Providers}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  SelectedItem="{Binding SelectedProvider}"
+                  EnableRowVirtualization="False"
+                  EnableColumnVirtualization="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Provider Name" Binding="{Binding Name, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Provider Type" Binding="{Binding Type, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Version" Binding="{Binding Version, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Is Legacy" Binding="{Binding IsLegacy, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Is Hardware" Binding="{Binding IsHardware, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Hardware RNG" Binding="{Binding HardwareRNG, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Software" Binding="{Binding IsSoftware, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Is Removable" Binding="{Binding IsRemovable, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Is SmartCard" Binding="{Binding IsSmartCard, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Max. Container Length" Binding="{Binding KeyContainerLength, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Key Spec" Binding="{Binding KeySpec, Mode=OneWay}"/>
+                <DataGridCheckBoxColumn Header="Is Valid" Binding="{Binding IsValid, Mode=OneWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </HeaderedContentControl>
+</UserControl>
